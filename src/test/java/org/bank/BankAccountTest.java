@@ -71,6 +71,23 @@ public class BankAccountTest {
     }
 
     @Test
+    public void Payment_TotalAmountIs0_Returns0(){
+        // Arrange
+        BankAccount account = new BankAccount(10);
+        double total_amount = 0, interes = 0.01, payment;
+        int months = 5;
+
+        // Act
+        payment = account.payment(total_amount, interes, months);
+
+        // Assert
+        assertEquals(0, payment, "Payment debe ser 0 con cantidad total = 0.");
+    }
+
+    
+
+
+    @Test
     public void Pending_MonthIs0_ReturnsAmount(){
         // Arrange
         BankAccount account = new BankAccount(10);
