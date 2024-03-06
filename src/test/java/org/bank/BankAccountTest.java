@@ -97,7 +97,7 @@ public class BankAccountTest {
         // Assert
         assertEquals(Double.NaN, payment, "Payment debe ser 0 con interes = 0.");
     }
-    
+
     @Test
     public void Payment_NPaymentsIs0_ReturnsInfinity(){
         // Arrange
@@ -112,6 +112,21 @@ public class BankAccountTest {
         assertEquals(Double.POSITIVE_INFINITY, payment, "Payment debe ser 0 con interes = 0.");
     }
 
+    @Test
+    @DisplayName("Payment of amount 1000, with interest 0.01, 5 months, in month 2 must be: 605,96")
+    public void Payment_ValidParameters_Returns206Aprox(){
+        // Arrange
+        BankAccount account = new BankAccount(10);
+        double total_amount = 1000, interest = 0.01, payment;
+        int months = 5;
+
+        // Act
+        payment = account.payment(total_amount, interest, months);
+
+        // Assert
+        assertEquals(206.03, payment, 0.01,"PendingAmount must be 605,960003.");
+
+    }
     @Test
     public void Pending_MonthIs0_ReturnsAmount(){
         // Arrange
