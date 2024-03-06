@@ -65,5 +65,19 @@ public class BankAccountTest {
                 "Deberia lanzar una excepcion del tipo 'IllegalArgumentException'");
     }
 
+    @Test
+    public void Pending_MonthIs0_ReturnsAmount(){
+        // Arrange
+        BankAccount account = new BankAccount(10);
+        double pendingAmount, amount = 100;
+
+        // Act
+        pendingAmount = account.pending(amount, 2, 5, 0);
+
+        // Assert
+        assertEquals(amount, pendingAmount, 0.0001, "Amount y pendingAmount deberian ser iguales");
+    }
+
+
 
 }
