@@ -74,17 +74,29 @@ public class BankAccountTest {
     public void Payment_TotalAmountIs0_Returns0(){
         // Arrange
         BankAccount account = new BankAccount(10);
-        double total_amount = 0, interes = 0.01, payment;
+        double total_amount = 0, interest = 0.01, payment;
         int months = 5;
 
         // Act
-        payment = account.payment(total_amount, interes, months);
+        payment = account.payment(total_amount, interest, months);
 
         // Assert
         assertEquals(0, payment, "Payment debe ser 0 con cantidad total = 0.");
     }
 
-    
+    @Test
+    public void Payment_InterestIs0_ReturnsNaN(){
+        // Arrange
+        BankAccount account = new BankAccount(10);
+        double total_amount = 1000, interest = 0, payment;
+        int months = 5;
+
+        // Act
+        payment = account.payment(total_amount, interest, months);
+
+        // Assert
+        assertEquals(Double.NaN, payment, "Payment debe ser 0 con interes = 0.");
+    }
 
 
     @Test
@@ -101,15 +113,15 @@ public class BankAccountTest {
     }
 
     @Test
-    @DisplayName("Pending payment of amount 1000, with interes 0.01, 5 months, in month 2 must be: 605,96")
+    @DisplayName("Pending payment of amount 1000, with interest 0.01, 5 months, in month 2 must be: 605,96")
     public void Pending_ValidParameters_Returns606Aprox(){
         // Arrange
         BankAccount account = new BankAccount(10);
-        double total_amount = 1000, interes = 0.01, pendingAmount;
+        double total_amount = 1000, interest = 0.01, pendingAmount;
         int months = 5;
 
         // Act
-        pendingAmount = account.pending(total_amount, interes, months, 2);
+        pendingAmount = account.pending(total_amount, interest, months, 2);
 
         // Assert
         assertEquals(605.96003, pendingAmount, 0.01,"PendingAmount must be 605,960003.");
