@@ -16,4 +16,16 @@ public class BankAccountTests {
         assertEquals("Deberia ser igual a 10",10, account.getBalance());
     }
 
+    @Test
+    public void GetBalance_PossibleWithdraw_ReturnsBalanceMinusAmount(){
+        // Arrange
+        BankAccount account = new BankAccount(10);
+
+        // Act
+        account.withdraw(5);
+
+        // Assert
+        assertEquals("El balance deberia ser 5", 5, account.getBalance());
+    }
+
 }
