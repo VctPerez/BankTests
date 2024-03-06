@@ -28,4 +28,16 @@ public class BankAccountTests {
         assertEquals("El balance deberia ser 5", 5, account.getBalance());
     }
 
+    @Test
+    public void GetBalance_CorrectDeposit_ReturnsBalancePlusAmount(){
+        // Arrange
+        BankAccount account = new BankAccount(10);
+
+        // Act
+        account.deposit(10);
+
+        // Assert
+        assertEquals("El balance deberia ser 20", 20, account.getBalance());
+    }
+
 }
