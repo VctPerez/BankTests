@@ -97,7 +97,20 @@ public class BankAccountTest {
         // Assert
         assertEquals(Double.NaN, payment, "Payment debe ser 0 con interes = 0.");
     }
+    
+    @Test
+    public void Payment_NPaymentsIs0_ReturnsInfinity(){
+        // Arrange
+        BankAccount account = new BankAccount(10);
+        double total_amount = 1000, interest = 0.01, payment;
+        int months = 0;
 
+        // Act
+        payment = account.payment(total_amount, interest, months);
+
+        // Assert
+        assertEquals(Double.POSITIVE_INFINITY, payment, "Payment debe ser 0 con interes = 0.");
+    }
 
     @Test
     public void Pending_MonthIs0_ReturnsAmount(){
