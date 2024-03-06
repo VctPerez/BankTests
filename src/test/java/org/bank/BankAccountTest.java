@@ -1,11 +1,16 @@
 package org.bank;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * @author Victor Perez Armenta
+ *
+ * @
+ */
 public class BankAccountTest {
-
     @Test
     public void GetBalance_NewBankAccount_ReturnsStartingBalance(){
         // Arrange
@@ -78,6 +83,19 @@ public class BankAccountTest {
         assertEquals(amount, pendingAmount, 0.0001, "Amount y pendingAmount deberian ser iguales");
     }
 
+    @Test
+    @DisplayName("Pending payment of amount 1000, with interes 0.01, 5 months, in month 2 must be: 605,96")
+    public void Pending_ValidParameters_Returns606Aprox(){
+        // Arrange
+        BankAccount account = new BankAccount(10);
+        double total_amount = 1000, interes = 0.01, pendingAmount;
+        int months = 5;
 
+        // Act
+        pendingAmount = account.pending(total_amount, interes, months, 2);
+
+        // Assert
+        assertEquals(605.96003, pendingAmount, 0.01,"PendingAmount must be 605,960003.");
+    }
 
 }
