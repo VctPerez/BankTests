@@ -1,9 +1,8 @@
 package org.bank;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class BankAccountTest {
 
@@ -13,7 +12,7 @@ public class BankAccountTest {
         BankAccount account = new BankAccount(10);
         // Act
         // Assert
-        assertEquals("Deberia ser igual a 10",10, account.getBalance());
+        assertEquals(10, account.getBalance(), "Deberia ser igual a 10");
     }
 
     @Test
@@ -25,19 +24,20 @@ public class BankAccountTest {
         account.withdraw(5);
 
         // Assert
-        assertEquals("El balance deberia ser 5", 5, account.getBalance());
+        assertEquals( 5, account.getBalance(), "El balance deberia ser 5");
     }
 
     @Test
     public void GetBalance_CorrectDeposit_ReturnsBalancePlusAmount(){
         // Arrange
         BankAccount account = new BankAccount(10);
+        int newBalance;
 
         // Act
-        account.deposit(10);
+        newBalance = account.deposit(10);
 
         // Assert
-        assertEquals("El balance deberia ser 20", 20, account.getBalance());
+        assertEquals(newBalance, account.getBalance(),"El balance deberia ser 20");
     }
 
 
@@ -50,7 +50,20 @@ public class BankAccountTest {
         completed = account.withdraw(20);
 
         // Assert
-        assertFalse("Withdraw deberia retornar False", completed);
-        assertEquals("GetBalance no deberia haber cambiado", 10, account.getBalance());
+        assertFalse(completed, "Withdraw deberia retornar False");
+        assertEquals(10, account.getBalance(), "GetBalance no deberia haber cambiado");
     }
+
+    @Test
+    public void Deposit_NegativeAmount_ThrowsIllegalArgumentException(){
+        // Arrange
+        BankAccount account = new BankAccount(10);
+
+        // Act
+        // Assert
+        assertThrows(IllegalArgumentException.class, () -> {account.deposit(-10);},
+                "Deberia lanzar una excepcion del tipo 'IllegalArgumentException'");
+    }
+
+
 }
