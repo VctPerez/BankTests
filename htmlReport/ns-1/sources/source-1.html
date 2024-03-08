@@ -1,0 +1,151 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > BankAccount</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">org.bank</a>
+</div>
+
+<h1>Coverage Summary for Class: BankAccount (org.bank)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">BankAccount</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (6/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (22/22)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package org.bank;
+&nbsp;
+&nbsp;public class BankAccount {
+<b class="fc">&nbsp;    private int balance = 0;</b>
+<b class="fc">&nbsp;    public BankAccount(int startingBalance) {</b>
+<b class="fc">&nbsp;        this.balance = startingBalance;</b>
+&nbsp;    }
+&nbsp;    public boolean withdraw(int amount) {
+<b class="fc">&nbsp;        if(balance &gt;= amount) {</b>
+<b class="fc">&nbsp;            balance -= amount;</b>
+<b class="fc">&nbsp;            return true;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return false;</b>
+&nbsp;    }
+&nbsp;    public int deposit(int amount) {
+<b class="fc">&nbsp;        if (amount &lt;0)</b>
+<b class="fc">&nbsp;            throw new IllegalArgumentException(&quot;Amount cannot be negative&quot;);</b>
+<b class="fc">&nbsp;        balance += amount;</b>
+<b class="fc">&nbsp;        return balance;</b>
+&nbsp;    }
+&nbsp;    public int getBalance() {
+<b class="fc">&nbsp;        return balance;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // Calculate the payment per month for a loan
+&nbsp;    public double payment(double total_amount, double interest, int npayments){
+<b class="fc">&nbsp;        if(total_amount &lt; 0 || interest &lt;= 0 || npayments &lt; 1){</b>
+<b class="fc">&nbsp;            throw new IllegalArgumentException(&quot;Parameters are invalid&quot;);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return total_amount*(interest*Math.pow((1+interest), npayments)/(Math.pow((1+interest), npayments)-1));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // Calculate the pending amount for a loan in a month
+&nbsp;    public double pending (double amount, double inte, int npayments, int month){
+<b class="fc">&nbsp;        if(month &gt; npayments || month &lt; 0){</b>
+<b class="fc">&nbsp;            throw new IllegalArgumentException(&quot;El mes que desea ver no es valido&quot;);</b>
+&nbsp;        }
+&nbsp;        double res;
+<b class="fc">&nbsp;        if(month==0){</b>
+<b class="fc">&nbsp;            res=amount;</b>
+&nbsp;        }else{
+<b class="fc">&nbsp;            double ant=pending(amount, inte, npayments, month-1);</b>
+<b class="fc">&nbsp;            res = ant - (payment(amount,inte,npayments) - inte*ant);</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return res;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-03-08 11:19</div>
+</div>
+</body>
+</html>
