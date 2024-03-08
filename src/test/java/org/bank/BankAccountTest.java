@@ -2,6 +2,8 @@ package org.bank;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -70,46 +72,21 @@ public class BankAccountTest {
                 "Deberia lanzar una excepcion del tipo 'IllegalArgumentException'");
     }
 
-    @Test
-    public void Payment_TotalAmountIs0_Returns0(){
-        // Arrange
+    @ParameterizedTest
+    @CsvSource({
+            "-10000, 0.001, 10",
+            "10000, 0, 10",
+            "10000, -10, 10",
+            "10000, 0.001, 0",
+            "10000, 0.001, -10"
+    })
+    public void Payment_InvalidParameters_ThrowsIllegalArgumentException(double total_amount, double interest, int npayments){
+        //Arrange
         BankAccount account = new BankAccount(10);
-        double total_amount = 0, interest = 0.01, payment;
-        int months = 5;
-
-        // Act
-        payment = account.payment(total_amount, interest, months);
-
-        // Assert
-        assertEquals(0, payment, "Payment debe ser 0 con cantidad total = 0.");
-    }
-
-    @Test
-    public void Payment_InterestIs0_ReturnsNaN(){
-        // Arrange
-        BankAccount account = new BankAccount(10);
-        double total_amount = 1000, interest = 0, payment;
-        int months = 5;
-
-        // Act
-        payment = account.payment(total_amount, interest, months);
-
-        // Assert
-        assertEquals(Double.NaN, payment, "Payment debe ser 0 con interes = 0.");
-    }
-
-    @Test
-    public void Payment_NPaymentsIs0_ReturnsInfinity(){
-        // Arrange
-        BankAccount account = new BankAccount(10);
-        double total_amount = 1000, interest = 0.01, payment;
-        int months = 0;
-
-        // Act
-        payment = account.payment(total_amount, interest, months);
-
-        // Assert
-        assertEquals(Double.POSITIVE_INFINITY, payment, "Payment debe ser 0 con interes = 0.");
+        //Act
+        //Assert
+        assertThrows(IllegalArgumentException.class, () -> {account.payment(total_amount, interest, npayments);},
+                    "Deberia lanzar una excepcion del tipo 'IllegalArgumentException'");
     }
 
     @Test
@@ -153,6 +130,17 @@ public class BankAccountTest {
 
         // Assert
         assertEquals(605.96003, pendingAmount, 0.01,"PendingAmount must be 605,960003.");
+    }
+
+    @Test
+    public void Pending_WhenMonthGreaterThanNpayments_ThrowsIllegalArgumentException(){
+        // Arrange
+        BankAccount account = new BankAccount(10);
+
+        // Act
+        // Assert
+        assertThrows(IllegalArgumentException.class, () -> account.pending(10000, 0.001, 10, -1));
+        assertThrows(IllegalArgumentException.class, () -> account.pending(10000, 0.001, 10, 15));
     }
 
 }

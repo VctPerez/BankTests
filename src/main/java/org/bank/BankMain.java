@@ -4,9 +4,9 @@ public class BankMain {
 
     public static void main(String args[]){
         BankAccount bank =new BankAccount(10);
-        double total_amount =10000; 
+        double total_amount = 10000;
         double interes = 0.001;
-        int months = 12;
+        int months = 0;
 
         System.out.printf("Load payment of amount %f, with interes %f and in %d months is: %f\n", total_amount, 
             interes, months, bank.payment(total_amount, interes, months));
