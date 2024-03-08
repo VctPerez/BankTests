@@ -10,7 +10,10 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * @author Victor Perez Armenta
  *
- * @
+ * @implNote
+ *  Para la implementación de los tests, tambien podría haber hecho use de la notación @Before...
+ *  para la creacion del objeto BankAccount, pero he decidido dejarlo en los tests porque en algunos se me quedaba muy
+ *  vacío el patrón AAA.
  */
 public class BankAccountTest {
     @Test
@@ -138,7 +141,7 @@ public class BankAccountTest {
         BankAccount account = new BankAccount(10);
 
         // Act
-        // Assert
+        // Assert - No he parametrizado el test ya que solo son dos casos a comprobar.
         assertThrows(IllegalArgumentException.class, () -> account.pending(10000, 0.001, 10, -1));
         assertThrows(IllegalArgumentException.class, () -> account.pending(10000, 0.001, 10, 15));
     }
